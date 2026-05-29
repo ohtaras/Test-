@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Το Ελληνικό Μου</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    /* ── CSS Custom Properties ─────────────────────────────── */
+    :root {
+      --blue:   #0D5EAF;
+      --blue-light: #1a74cf;
+      --blue-dark:  #094b8a;
+      --white:  #FFFFFF;
+      --terra:  #C1440E;
+      --terra-light: #e05520;
+      --gold:   #D4A017;
+      --gold-light: #e8b820;
+      --cream:  #FDF8F0;
+      --text:   #1a1a2e;
+      --text-light: #555577;
+      --shadow: 0 4px 24px rgba(13,94,175,0.12);
+      --shadow-hover: 0 8px 32px rgba(13,94,175,0.22);
+      --radius: 12px;
+      --font-head: 'Playfair Display', 'Georgia', serif;
+      --font-body: 'Noto Serif', 'Georgia', serif;
+    }
+
+    /* ── Reset & Base ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── May 29 Easter Egg Banner ─────────────────────────── */
+    /* <!-- May 29 Easter egg uses local browser time --> */
+    .may29-banner {
+      background: #1a1a3e;
+      color: #ccd0e0;
+      text-align: center;
+      padding: 0.75rem 1.5rem;
+      font-size: clamp(0.78rem, 2vw, 0.92rem);
+      border-bottom: 2px solid #4a4a7a;
+      line-height: 1.6;
+    }
+    .may29-banner strong { color: #aab0d0; display: block; margin-bottom: 0.25rem; }
+
+    /* ── Header ───────────────────────────────────────────── */
+    header {
+      background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 50%, var(--blue-light) 100%);
+      color: var(--white);
+      padding: 2.5rem 1.5rem 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(212,160,23,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(193,68,14,0.10) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .header-greek-pattern {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 6px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--gold) 0px, var(--gold) 12px,
+        transparent 12px, transparent 18px,
+        var(--terra) 18px, var(--terra) 24px,
+        transparent 24px, transparent 30px
+      );
+    }
+
+    .header-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+
+    .header-crown { font-size: 2.5rem; margin-bottom: 0.5rem; }
+
+    h1 {
+      font-family: var(--font-head);
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.4rem;
+    }
+
+    .header-subtitle {
+      font-size: clamp(1rem, 3vw, 1.3rem);
+      opacity: 0.92;
+      margin-bottom: 0.75rem;
+    }
+
+    .header-date {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 30px;
+      padding: 0.35rem 1.2rem;
+      font-size: clamp(0.82rem, 2vw, 0.95rem);
+      backdrop-filter: blur(4px);
+    }
+
+    /* ── Wave separator ───────────────────────────────────── */
+    .wave-sep {
+      display: block;
+      width: 100%;
+      height: 40px;
+      background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-light) 100%);
+      clip-path: ellipse(55% 100% at 50% 0%);
+      margin-bottom: -1px;
+    }
+
+    /* ── Navigation Tabs ──────────────────────────────────── */
+    nav {
+      background: var(--white);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-inner::-webkit-scrollbar { display: none; }
+
+    .nav-tab {
+      flex: 1;
+      min-width: 120px;
+      padding: 0.9rem 0.5rem;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: clamp(0.75rem, 2vw, 0.88rem);
+      color: var(--text-light);
+      border-bottom: 3px solid transparent;
+      transition: all 0.25s;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .nav-tab .tab-icon { display: block; font-size: 1.4rem; margin-bottom: 0.2rem; }
+    .nav-tab:hover { color: var(--blue); }
+    .nav-tab.active {
+      color: var(--blue);
+      border-bottom-color: var(--blue);
+      font-weight: 600;
+    }
+
+    /* ── Main & Sections ──────────────────────────────────── */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    section {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2rem;
+      border-left: 5px solid var(--blue);
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    section.visible { opacity: 1; transform: none; }
+
+    section:nth-child(2) { border-left-color: var(--terra); }
+    section:nth-child(3) { border-left-color: var(--gold); }
+    section:nth-child(4) { border-left-color: var(--blue-dark); }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid #eeeef8;
+    }
+    .section-icon { font-size: 1.8rem; }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(1.2rem, 3vw, 1.55rem);
+      font-weight: 700;
+      color: var(--blue);
+    }
+    section:nth-child(2) .section-title { color: var(--terra); }
+    section:nth-child(3) .section-title { color: #a07a00; }
+    section:nth-child(4) .section-title { color: var(--blue-dark); }
+
+    .section-sub {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      margin-left: auto;
+      font-style: italic;
+    }
+
+    /* ── Buttons ──────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.65rem 1.4rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-blue {
+      background: var(--blue);
+      color: var(--white);
+    }
+    .btn-blue:hover { background: var(--blue-dark); transform: scale(1.03); box-shadow: var(--shadow-hover); }
+
+    .btn-terra {
+      background: var(--terra);
+      color: var(--white);
+    }
+    .btn-terra:hover { background: var(--terra-light); transform: scale(1.03); box-shadow: var(--shadow-hover); }
+
+    .btn-gold {
+      background: var(--gold);
+      color: var(--text);
+    }
+    .btn-gold:hover { background: var(--gold-light); transform: scale(1.03); box-shadow: var(--shadow-hover); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--blue);
+      border: 2px solid var(--blue);
+    }
+    .btn-outline:hover { background: var(--blue); color: var(--white); transform: scale(1.03); }
+
+    /* ── Section 1: Name Day Calendar ───────────────────── */
+    .nameday-today {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%);
+      color: var(--white);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
+      animation: pulseGlow 2.5s ease-in-out infinite;
+    }
+    .nameday-today.empty {
+      background: linear-gradient(135deg, #6b7280 0%, #9ca3af 100%);
+    }
+    .nameday-today-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.85;
+      margin-bottom: 0.4rem;
+    }
+    .nameday-today-names {
+      font-family: var(--font-head);
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      font-weight: 700;
+    }
+    .nameday-today-saint {
+      font-size: 0.88rem;
+      opacity: 0.9;
+      margin-top: 0.3rem;
+    }
+
+    .nameday-search {
+      display: flex;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+    .nameday-search input {
+      flex: 1;
+      padding: 0.6rem 1rem;
+      border: 2px solid #dde3f0;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--text);
+      transition: border-color 0.2s;
+    }
+    .nameday-search input:focus {
+      outline: none;
+      border-color: var(--blue);
+    }
+
+    .nameday-result {
+      min-height: 2rem;
+      font-size: 0.95rem;
+      color: var(--text-light);
+    }
+    .nameday-result .found {
+      background: #eef4ff;
+      border: 1px solid #c0d4ff;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      color: var(--text);
+    }
+    .nameday-result .found strong { color: var(--blue); }
+    .nameday-result .not-found {
+      color: var(--terra);
+      font-style: italic;
+    }
+
+    /* ── Section 2: Coffee Oracle ─────────────────────────── */
+    .coffee-selectors {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    @media (max-width: 480px) { .coffee-selectors { grid-template-columns: 1fr; } }
+
+    .coffee-select-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 0.35rem;
+    }
+    .coffee-select-group select {
+      width: 100%;
+      padding: 0.65rem 1rem;
+      border: 2px solid #dde3f0;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--text);
+      background: var(--white);
+      cursor: pointer;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230D5EAF' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.9rem center;
+      padding-right: 2.5rem;
+    }
+    .coffee-select-group select:focus { outline: none; border-color: var(--terra); }
+
+    .coffee-result {
+      margin-top: 1.25rem;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.4s, transform 0.4s;
+      pointer-events: none;
+    }
+    .coffee-result.show { opacity: 1; transform: none; pointer-events: auto; }
+
+    .coffee-card {
+      background: linear-gradient(135deg, #fff5f0 0%, #fff0e8 100%);
+      border: 2px solid var(--terra);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .coffee-drink-emoji { font-size: 3rem; margin-bottom: 0.5rem; }
+    .coffee-drink-name {
+      font-family: var(--font-head);
+      font-size: clamp(1.2rem, 3vw, 1.6rem);
+      color: var(--terra);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .coffee-comment {
+      font-style: italic;
+      color: var(--text-light);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      border-top: 1px solid #f0d8d0;
+      padding-top: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    /* ── Section 3: Proverb of the Day ───────────────────── */
+    .proverb-card {
+      background: linear-gradient(135deg, #fffbf0 0%, #fff8e8 100%);
+      border: 1px solid #f0e0a0;
+      border-radius: 12px;
+      padding: 1.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .proverb-card::before {
+      content: '"';
+      position: absolute;
+      top: -0.5rem;
+      left: 1rem;
+      font-family: var(--font-head);
+      font-size: 8rem;
+      color: rgba(212,160,23,0.12);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .proverb-greek {
+      font-family: var(--font-head);
+      font-size: clamp(1.15rem, 3vw, 1.55rem);
+      font-weight: 700;
+      color: #7a5a00;
+      line-height: 1.5;
+      margin-bottom: 0.6rem;
+      position: relative;
+    }
+    .proverb-transliteration {
+      font-style: italic;
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .proverb-meaning {
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.7;
+      border-top: 1px solid #eed080;
+      padding-top: 0.75rem;
+    }
+    .proverb-meaning::before {
+      content: '↳ ';
+      color: var(--gold);
+    }
+
+    .proverb-counter {
+      text-align: right;
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-top: 0.75rem;
+    }
+
+    /* ── Section 4: Mythology Card ────────────────────────── */
+    .deity-stage {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      perspective: 800px;
+    }
+
+    .deity-card-wrap {
+      width: clamp(260px, 80vw, 320px);
+    }
+
+    .deity-card {
+      background: linear-gradient(135deg, #f0f4ff 0%, #e8eeff 100%);
+      border: 2px solid #c0d0ff;
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: scale(0.88) rotateY(-8deg);
+      transition: opacity 0.5s, transform 0.5s;
+    }
+    .deity-card.show { opacity: 1; transform: scale(1) rotateY(0deg); }
+    .deity-card.placeholder {
+      opacity: 1;
+      transform: none;
+      background: linear-gradient(135deg, #e8eeff 0%, #dce4ff 100%);
+      border-style: dashed;
+    }
+
+    .deity-emoji { font-size: 3.5rem; margin-bottom: 0.5rem; }
+    .deity-symbol { font-size: 1.5rem; margin-bottom: 0.3rem; }
+    .deity-name {
+      font-family: var(--font-head);
+      font-size: clamp(1.4rem, 4vw, 1.9rem);
+      font-weight: 700;
+      color: var(--blue-dark);
+      margin-bottom: 0.35rem;
+    }
+    .deity-domain {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+    .deity-fact {
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.65;
+      background: rgba(255,255,255,0.7);
+      border-radius: 8px;
+      padding: 0.75rem;
+    }
+
+    .deity-placeholder-text {
+      color: var(--text-light);
+      font-style: italic;
+      font-size: 1rem;
+    }
+
+    .deity-controls { text-align: center; }
+
+    /* ── Footer ───────────────────────────────────────────── */
+    footer {
+      background: var(--blue-dark);
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.85rem;
+      margin-top: 2rem;
+    }
+    footer .footer-symbol { font-size: 2rem; display: block; margin-bottom: 0.5rem; }
+    footer a { color: rgba(255,255,255,0.8); text-decoration: none; }
+    footer a:hover { color: var(--gold); }
+
+    /* ── Greek Key Decoration ────────────────────────────── */
+    .greek-key-bar {
+      height: 8px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--gold) 0px, var(--gold) 8px,
+        transparent 8px, transparent 10px,
+        var(--gold) 10px, var(--gold) 18px,
+        transparent 18px, transparent 28px,
+        var(--terra) 28px, var(--terra) 36px,
+        transparent 36px, transparent 38px
+      );
+      opacity: 0.6;
+      margin: 0.5rem 0;
+    }
+
+    /* ── Animations ───────────────────────────────────────── */
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 4px 20px rgba(13,94,175,0.25); }
+      50% { box-shadow: 0 4px 30px rgba(13,94,175,0.45); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes spinIn {
+      from { opacity: 0; transform: rotate(-10deg) scale(0.8); }
+      to   { opacity: 1; transform: rotate(0deg) scale(1); }
+    }
+
+    /* ── Utilities ────────────────────────────────────────── */
+    .mt-1 { margin-top: 0.5rem; }
+    .mt-2 { margin-top: 1rem; }
+    .flex-center { display: flex; justify-content: center; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+    .text-center { text-align: center; }
+
+    /* ── Responsive ───────────────────────────────────────── */
+    @media (max-width: 600px) {
+      section { padding: 1.25rem; }
+      .section-sub { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════ HEADER ═══════════════════════ -->
+  <header>
+    <div class="header-greek-pattern"></div>
+    <div class="header-inner">
+      <div class="header-crown">🏛️</div>
+      <h1>Το Ελληνικό Μου</h1>
+      <p class="header-subtitle">Γεια σου, Οχτάρα! 👋</p>
+      <p class="header-date" id="header-date">...</p>
+    </div>
+  </header>
+
+  <!-- ════════════════════════════════ NAV ══════════════════════════ -->
+  <nav>
+    <div class="nav-inner">
+      <button class="nav-tab active" data-target="namedays">
+        <span class="tab-icon">📅</span>
+        Ονομαστικά
+      </button>
+      <button class="nav-tab" data-target="coffee">
+        <span class="tab-icon">☕</span>
+        Καφεμαντεία
+      </button>
+      <button class="nav-tab" data-target="proverb">
+        <span class="tab-icon">💬</span>
+        Παροιμία
+      </button>
+      <button class="nav-tab" data-target="mythology">
+        <span class="tab-icon">⚡</span>
+        Μυθολογία
+      </button>
+    </div>
+  </nav>
+
+  <!-- ════════════════════════════════ MAIN ═════════════════════════ -->
+  <main>
+
+    <!-- ── Section 1: Name Days ─────────────────────────────────── -->
+    <section id="namedays">
+      <div class="section-header">
+        <span class="section-icon">📅</span>
+        <h2 class="section-title">Ημερολόγιο Ονομαστικών</h2>
+        <span class="section-sub">Name Day Calendar</span>
+      </div>
+
+      <div class="nameday-today" id="nameday-today-banner">
+        <div class="nameday-today-label">⭐ Σήμερα γιορτάζουν</div>
+        <div class="nameday-today-names" id="nameday-today-names">Φορτώνω...</div>
+        <div class="nameday-today-saint" id="nameday-today-saint"></div>
+      </div>
+
+      <div class="nameday-search">
+        <input type="text" id="nameday-input" placeholder="Αναζήτησε ένα όνομα..." aria-label="Αναζήτηση ονόματος" autocomplete="off" />
+        <button class="btn btn-blue" onclick="searchName()">Αναζήτηση</button>
+      </div>
+      <div class="nameday-result" id="nameday-result"></div>
+    </section>
+
+    <!-- ── Section 2: Coffee Oracle ──────────────────────────────── -->
+    <section id="coffee">
+      <div class="section-header">
+        <span class="section-icon">☕</span>
+        <h2 class="section-title">Καφεμαντεία</h2>
+        <span class="section-sub">The Coffee Oracle</span>
+      </div>
+
+      <div class="coffee-selectors">
+        <div class="coffee-select-group">
+          <label for="mood-select">Πώς είσαι;</label>
+          <select id="mood-select">
+            <option value="">— Η διάθεσή σου —</option>
+            <option value="χαρούμενος">😄 Χαρούμενος</option>
+            <option value="λυπημένος">😔 Λυπημένος</option>
+            <option value="κουρασμένος">😴 Κουρασμένος</option>
+            <option value="αγχωμένος">😰 Αγχωμένος</option>
+            <option value="ερωτευμένος">😍 Ερωτευμένος</option>
+          </select>
+        </div>
+        <div class="coffee-select-group">
+          <label for="time-select">Τι ώρα είναι;</label>
+          <select id="time-select">
+            <option value="">— Στιγμή της μέρας —</option>
+            <option value="πρωί">🌅 Πρωί</option>
+            <option value="μεσημέρι">☀️ Μεσημέρι</option>
+            <option value="απόγευμα">🌤️ Απόγευμα</option>
+            <option value="βράδυ">🌙 Βράδυ</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="flex-center">
+        <button class="btn btn-terra" onclick="revealCoffee()">☕ Δώσε μου τον καφέ μου!</button>
+      </div>
+
+      <div class="coffee-result" id="coffee-result">
+        <div class="coffee-card">
+          <div class="coffee-drink-emoji" id="coffee-emoji">☕</div>
+          <div class="coffee-drink-name" id="coffee-name">—</div>
+          <div class="coffee-comment" id="coffee-comment">—</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Section 3: Proverb ─────────────────────────────────────── -->
+    <section id="proverb">
+      <div class="section-header">
+        <span class="section-icon">💬</span>
+        <h2 class="section-title">Παροιμία της Ημέρας</h2>
+        <span class="section-sub">Greek Wisdom</span>
+      </div>
+
+      <div class="greek-key-bar"></div>
+
+      <div class="proverb-card mt-2" id="proverb-card">
+        <div class="proverb-greek" id="proverb-greek">...</div>
+        <div class="proverb-transliteration" id="proverb-trans">...</div>
+        <div class="proverb-meaning" id="proverb-meaning">...</div>
+      </div>
+      <div class="proverb-counter" id="proverb-counter"></div>
+
+      <div class="flex-center mt-2">
+        <button class="btn btn-gold" onclick="nextProverb()">🔄 Άλλη παροιμία</button>
+      </div>
+    </section>
+
+    <!-- ── Section 4: Mythology Card ─────────────────────────────── -->
+    <section id="mythology">
+      <div class="section-header">
+        <span class="section-icon">⚡</span>
+        <h2 class="section-title">Μυθολογική Κάρτα</h2>
+        <span class="section-sub">Draw Your Deity</span>
+      </div>
+
+      <div class="deity-stage">
+        <div class="deity-card-wrap">
+          <div class="deity-card placeholder" id="deity-card">
+            <p class="deity-placeholder-text">🎴 Τράβα μια κάρτα<br/>και ανακάλυψε τον θεό σου!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="deity-controls">
+        <button class="btn btn-blue" onclick="drawDeity()">🎴 Τράβα κάρτα!</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ════════════════════════════════ FOOTER ═══════════════════════ -->
+  <footer>
+    <span class="footer-symbol">🏛️</span>
+    <p>Φτιαγμένο με αγάπη για έναν αληθινό Έλληνα</p>
+    <p class="mt-1" style="font-size:0.78rem;opacity:0.6;">Το Ελληνικό Μου &mdash; Made with ❤️ &amp; ☕</p>
+  </footer>
+
+  <!-- ════════════════════════════════ SCRIPT ═══════════════════════ -->
+  <script>
+  // ── Global date constants ─────────────────────────────────────────
+  const TODAY       = new Date();
+  const TODAY_MONTH = TODAY.getMonth() + 1; // 1-INDEXED
+  const TODAY_DAY   = TODAY.getDate();
+  const DAY_OF_YEAR = Math.floor((TODAY - new Date(TODAY.getFullYear(), 0, 0)) / 86400000);
+  /* <!-- May 29 Easter egg uses local browser time --> */
+  const MAY_29      = TODAY.getMonth() === 4 && TODAY.getDate() === 29;
+
+  // ── Utility: normalise Greek text for accent-insensitive search ───
+  function normaliseGreek(str) {
+    return str.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  }
+
+  // ── Set header date ───────────────────────────────────────────────
+  document.getElementById('header-date').textContent =
+    TODAY.toLocaleDateString('el-GR', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+
+  // ═══════════════════════════════════════════════════════════════════
+  //  DATA — NAME DAYS
+  //  MONTH IS 1-INDEXED throughout
+  // ═══════════════════════════════════════════════════════════════════
+  const NAME_DAYS = [
+    { names:['Βασίλης','Βασιλική','Βασιλεία'],          month:1,  day:1,  saint:'Άγιος Βασίλειος' },
+    { names:['Θεοφάνης','Θεοφανία','Φανή'],             month:1,  day:6,  saint:'Θεοφάνεια' },
+    { names:['Αντώνης','Αντωνία','Αντωνάκης'],          month:1,  day:17, saint:'Άγιος Αντώνιος' },
+    { names:['Αθανάσιος','Αθανασία'],                   month:1,  day:18, saint:'Άγιος Αθανάσιος' },
+    { names:['Τρύφωνας'],                               month:2,  day:1,  saint:'Άγιος Τρύφωνας' },
+    { names:['Υπαπαντή'],                               month:2,  day:2,  saint:'Υπαπαντή Κυρίου' },
+    { names:['Σιμεών','Σιμέων'],                        month:2,  day:3,  saint:'Άγιος Συμεών' },
+    { names:['Χαράλαμπος','Χαρά'],                      month:2,  day:10, saint:'Άγιος Χαράλαμπος' },
+    { names:['Βαλεντίνος'],                             month:2,  day:14, saint:'Άγιος Βαλεντίνος' },
+    { names:['Θεόδωρος','Θεοδώρα'],                     month:2,  day:17, saint:'Άγιος Θεόδωρος' },
+    { names:['Ευαγγελίστρια','Ευαγγελία','Βαγγέλης'],   month:3,  day:25, saint:'Ευαγγελισμός Θεοτόκου' },
+    { names:['Γεώργιος','Γεωργία','Γιώργος'],           month:4,  day:23, saint:'Άγιος Γεώργιος' },
+    { names:['Μάρκος'],                                 month:4,  day:25, saint:'Άγιος Μάρκος' },
+    { names:['Κωνσταντίνος','Κωνσταντία','Κώστας','Ελένη'], month:5, day:21, saint:'Άγιοι Κωνσταντίνος & Ελένη' },
+    { names:['Αλέξανδρος','Αλεξάνδρα'],                 month:5,  day:30, saint:'Άγιος Αλέξανδρος' },
+    { names:['Ιωάννης','Γιάννης','Ιωάννα','Γιάννα'],   month:6,  day:24, saint:'Γέννηση Ιωάννη Βαπτιστή' },
+    { names:['Πέτρος','Παύλος','Πέτρα'],                month:6,  day:29, saint:'Πρωτοκορυφαίοι Πέτρος & Παύλος' },
+    { names:['Κυριακή','Κυριάκος'],                     month:7,  day:7,  saint:'Αγία Κυριακή' },
+    { names:['Αναστάσιος','Αναστασία'],                 month:7,  day:13, saint:'Άγιος Αναστάσιος' },
+    { names:['Παρασκευή'],                              month:7,  day:26, saint:'Αγία Παρασκευή' },
+    { names:['Παντελεήμων'],                            month:7,  day:27, saint:'Άγιος Παντελεήμων' },
+    { names:['Σταύρος','Σταυρούλα'],                    month:8,  day:1,  saint:'Εξύψωση Τιμίου Σταυρού (Αύγουστος)' },
+    { names:['Αρτέμης','Αρτεμισία'],                    month:8,  day:7,  saint:'Αγία Άννα' },
+    { names:['Νικόδημος'],                              month:8,  day:3,  saint:'Άγιος Νικόδημος' },
+    { names:['Δέσποινα','Δεσπoινιά'],                   month:8,  day:15, saint:'Κοίμηση Θεοτόκου' },
+    { names:['Μαρία','Μαρίνα'],                         month:8,  day:15, saint:'Κοίμηση Θεοτόκου' },
+    { names:['Φώτης','Φωτεινή'],                         month:9,  day:17, saint:'Αγία Φωτεινή' },
+    { names:['Νικόλαος','Νικολέτα','Νίκος'],            month:12, day:6,  saint:'Άγιος Νικόλαος' },
+    { names:['Αννα','Άννα'],                            month:12, day:9,  saint:'Σύλληψη Αγίας Άννης' },
+    { names:['Χριστόδουλος','Χριστίνα'],                month:12, day:24, saint:'Παραμονή Χριστουγέννων' },
+    { names:['Χριστόφορος'],                            month:5,  day:9,  saint:'Άγιος Χριστόφορος' },
+    { names:['Σοφία','Σοφός'],                          month:9,  day:17, saint:'Αγία Σοφία' },
+    { names:['Ευθύμιος'],                               month:1,  day:20, saint:'Άγιος Ευθύμιος' },
+    { names:['Λάμπρος','Λαμπρινή'],                     month:4,  day:17, saint:'Άγιος Σάββας (Λαμπρή)' },
+    { names:['Δημήτριος','Δήμητρα','Μήτσος'],           month:10, day:26, saint:'Άγιος Δημήτριος' },
+    { names:['Αγαμέμνων','Οχτάρας'],                    month:10, day:3,  saint:'Άγιος Διονύσιος Αρεοπαγίτης' },
+    { names:['Ανδρέας'],                                month:11, day:30, saint:'Άγιος Ανδρέας' },
+    { names:['Νικηφόρος','Νίκη'],                       month:2,  day:9,  saint:'Άγιος Νικηφόρος' },
+    { names:['Θωμάς'],                                  month:10, day:6,  saint:'Άγιος Θωμάς ο Απόστολος' },
+    { names:['Ηλίας','Ηλιάνα'],                         month:7,  day:20, saint:'Άγιος Ηλίας' },
+    { names:['Μιχαήλ','Μιχάλης','Γαβριήλ','Ραφαήλ'],   month:11, day:8,  saint:'Σύναξη Αρχαγγέλων' },
+    { names:['Στέφανος','Στέλλα','Στεφανία'],           month:12, day:27, saint:'Άγιος Στέφανος Πρωτομάρτυς' },
+  ];
+
+  // ═══════════════════════════════════════════════════════════════════
+  //  DATA — COFFEE MATRIX  (mood × time)
+  // ═══════════════════════════════════════════════════════════════════
+  const COFFEE_EMOJI = {
+    'Ελληνικός καφές': '🫖',
+    'Φραπέ':           '🥤',
+    'Φρέντο εσπρέσο':  '☕',
+    'Φρέντο καπουτσίνο': '🍵',
+    'Βαρύγλυκος':      '🍮',
+  };
+
+  const COFFEE_MATRIX = {
+    'χαρούμενος': {
+      'πρωί':      { drink:'Ελληνικός καφές', prep:'σκέτος', comment:'Η χαρά δεν χρειάζεται ζάχαρη — ούτε ο καφές σου!' },
+      'μεσημέρι':  { drink:'Φρέντο εσπρέσο',  prep:'',       comment:'Κράτα την ενέργεια ψηλά, χαρούμενε!' },
+      'απόγευμα':  { drink:'Φραπέ',            prep:'μέτριος',comment:'Ο κλασσικός Έλληνας ξέρει τι θέλει. Μπράβο σου!' },
+      'βράδυ':     { drink:'Βαρύγλυκος',       prep:'',       comment:'Γλυκιά νύχτα για γλυκές σκέψεις. Καληνύχτα!' },
+    },
+    'λυπημένος': {
+      'πρωί':      { drink:'Ελληνικός καφές', prep:'γλυκός', comment:'Ένας βαρύγλυκος ελληνικός θα σε ζεστάνει — η ζωή είναι ωραία!' },
+      'μεσημέρι':  { drink:'Φρέντο καπουτσίνο',prep:'',      comment:'Το αφρώδες γάλα σε αγκαλιάζει σαν φίλος. Κούραγιο!' },
+      'απόγευμα':  { drink:'Φραπέ',            prep:'γλυκός',comment:'Ένας παγωμένος φραπές με πολύ ζάχαρη, γιατί αξίζεις!' },
+      'βράδυ':     { drink:'Βαρύγλυκος',       prep:'',      comment:'Μάθε από τα παθήματά σου και πες τα στον καφέ σου.' },
+    },
+    'κουρασμένος': {
+      'πρωί':      { drink:'Ελληνικός καφές', prep:'διπλός', comment:'Διπλός! Γιατί μισός δεν φτάνει όταν η ψυχή είναι στα γόνατα.' },
+      'μεσημέρι':  { drink:'Φρέντο εσπρέσο',  prep:'',       comment:'Ο μεσημεριανός τσάκωμα με τον ύπνο — νίκησε με καφεΐνη!' },
+      'απόγευμα':  { drink:'Φρέντο εσπρέσο',  prep:'',       comment:'Ένα φρέντο και τα μάτια ανοίγουν σαν παραθυράκια!' },
+      'βράδυ':     { drink:'Βαρύγλυκος',       prep:'',       comment:'Απόψε χαλαρώνεις. Αύριο ξεκινάς καινούρια. Καλήν.' },
+    },
+    'αγχωμένος': {
+      'πρωί':      { drink:'Ελληνικός καφές', prep:'μέτριος',comment:'Ηρέμησε. Ο ελληνικός πίνεται αργά — κάνε το ίδιο με τη ζωή σου.' },
+      'μεσημέρι':  { drink:'Φρέντο καπουτσίνο',prep:'',      comment:'Ο αφρός του καπουτσίνο σε θυμίζει: κάποιες στιγμές πρέπει να επιπλέεις!' },
+      'απόγευμα':  { drink:'Φραπέ',            prep:'μέτριος',comment:'Αυτό ΔΕΝ είναι η Ιταλία — εδώ χαλαρώνουμε με φραπέ!' },
+      'βράδυ':     { drink:'Βαρύγλυκος',       prep:'',      comment:'Άσε τις έγνοιες για αύριο. Απόψε: γλυκό ποτό, αδειανό μυαλό.' },
+    },
+    'ερωτευμένος': {
+      'πρωί':      { drink:'Φρέντο καπουτσίνο',prep:'',       comment:'Αφρώδης αγάπη για αφρώδη καρδιά — πόσο γλυκό!' },
+      'μεσημέρι':  { drink:'Ελληνικός καφές', prep:'γλυκός', comment:'Βλέπεις αστέρια; Φυσιολογικό. Κάνε κι έναν γλυκό!' },
+      'απόγευμα':  { drink:'Φραπέ',            prep:'γλυκός',comment:'Μοιράσου τον φραπέ σου με εκείνον/εκείνη. Ελληνικό ραντεβού!' },
+      'βράδυ':     { drink:'Βαρύγλυκος',       prep:'',       comment:'Η αγάπη είναι βαρύγλυκη. Να τη χαρείς!' },
+    },
+  };
+
+  // ═══════════════════════════════════════════════════════════════════
+  //  DATA — PROVERBS (30+)
+  //  Transliteration: colloquial Latin-Greek
+  // ═══════════════════════════════════════════════════════════════════
+  const PROVERBS = [
+    { greek:'Συν Αθηνά και χείρα κίνει', transliteration:'Sin Athina ke hira kini', meaning:'Μαζί με τη βοήθεια των θεών, πρέπει να δουλεύεις κι εσύ.' },
+    { greek:'Πάθει μάθος', transliteration:'Pathai mathos', meaning:'Μαθαίνεις μέσα από τα παθήματά σου.' },
+    { greek:'Η γλώσσα κόκαλα δεν έχει και κόκαλα τσακίζει', transliteration:'I glossa kokala den ehi ke kokala tsakizi', meaning:'Τα λόγια δεν έχουν υλική υπόσταση, μπορούν όμως να πληγώσουν βαθιά.' },
+    { greek:'Όποιος βιάζεται σκοντάφτει', transliteration:'Opios viazete skontaftei', meaning:'Η βιασύνη είναι κακός σύμβουλος.' },
+    { greek:'Ο φίλος στην ανάγκη φαίνεται', transliteration:'O filos stin anagi fenete', meaning:'Ο αληθινός φίλος αποκαλύπτεται στις δύσκολες στιγμές.' },
+    { greek:'Μια χελιδόνα δεν φέρνει άνοιξη', transliteration:'Mia helidona den ferni anixi', meaning:'Ένα μόνο θετικό σημάδι δεν αρκεί για να είμαστε σίγουροι.' },
+    { greek:'Ο έξυπνος νικιέται από τον πονηρό', transliteration:'O exipnos nikiete apo ton poniro', meaning:'Η αφέλεια μπορεί να μας κάνει εκμεταλλεύσιμους.' },
+    { greek:'Καλύτερα αργά παρά ποτέ', transliteration:'Kalitera arga para pote', meaning:'Η καθυστερημένη πράξη έχει περισσότερη αξία από την αδράνεια.' },
+    { greek:'Ο καλός ο βαρκάρης στη φουρτούνα φαίνεται', transliteration:'O kalos o varkaris sti furtuna fenete', meaning:'Οι ικανότητες φαίνονται στις δύσκολες στιγμές.' },
+    { greek:'Δεν γίνεται παπάς χωρίς σπουδή', transliteration:'Den ginete papas horis spoudi', meaning:'Κάθε επάγγελμα απαιτεί σπουδή και εξάσκηση.' },
+    { greek:'Νηστικό αρκούδι δεν χορεύει', transliteration:'Nistiko arkoudi den horevi', meaning:'Χωρίς τα απαραίτητα δεν μπορείς να κάνεις καλή δουλειά.' },
+    { greek:'Άνθρωπος που περπατά κάνει λάθη', transliteration:'Anthropos pou perpata kani lathi', meaning:'Οι άνθρωποι κάνουν λάθη — αυτό είναι φυσιολογικό.' },
+    { greek:'Ό,τι σπέρνεις, θερίζεις', transliteration:'Oti sperneis, therizis', meaning:'Τα αποτελέσματα των πράξεών σου σε ακολουθούν.' },
+    { greek:'Χαμηλά τα φρύδια και πολλά τα κρύα', transliteration:'Hamila ta fridia ke pola ta kria', meaning:'Μην κομπάζεις — οι δυσκολίες έρχονται απρόσμενα.' },
+    { greek:'Γη που τη δουλεύεις, σε θρέφει', transliteration:'Gi pou ti dulevies, se threfi', meaning:'Η επιμονή και η εργατικότητα αποδίδουν καρπούς.' },
+    { greek:'Εκατό χρόνια να ζήσεις, ένα βράδυ θα ξημερώσεις', transliteration:'Ekato hronia na zisis, ena vradi tha ximerosei', meaning:'Η ζωή είναι πολύτιμη — να τη ζεις πλήρως.' },
+    { greek:'Τον καλό τον βοηθά ο θεός', transliteration:'Ton kalo ton voitha o theos', meaning:'Η αρετή ανταμείβεται.' },
+    { greek:'Ο χρόνος είναι χρυσός', transliteration:'O chronos einai chrysos', meaning:'Ο χρόνος έχει αξία — μην τον σπαταλάς.' },
+    { greek:'Φίλος πιστός, χρυσός δίσκος', transliteration:'Filos pistos, chrysos diskos', meaning:'Ένας αληθινός φίλος αξίζει περισσότερο από χρυσό.' },
+    { greek:'Στη χαρά το ψωμί τρώγεται', transliteration:'Sti hara to psomi trogetai', meaning:'Η ευτυχία κάνει τα πάντα να φαίνονται καλύτερα.' },
+    { greek:'Ο Θεός να σε βλέπει', transliteration:'O Theos na se vlepei', meaning:'Έκφραση ευχής και θείας προστασίας.' },
+    { greek:'Άνδρες από τα δύσκολα μεγαλώνουν', transliteration:'Andres apo ta diskola megalononoun', meaning:'Οι δυσκολίες μας κάνουν πιο δυνατούς.' },
+    { greek:'Πάει και το ψωμί μαζί με το ψωμάς', transliteration:'Pai ke to psomi mazi me to psomas', meaning:'Χάνεις και τα δύο μαζί — προσοχή στις επιλογές σου.' },
+    { greek:'Η υπομονή φέρνει νίκη', transliteration:'I ipomoni ferni niki', meaning:'Η επιμονή τελικά ανταμείβεται.' },
+    { greek:'Όταν πεινάς, μαγειρεύεις καλύτερα', transliteration:'Otan peinas, mageirevies kalitera', meaning:'Η ανάγκη αναδεικνύει τις ικανότητες.' },
+    { greek:'Πίσω από κάθε σύννεφο κρύβεται ο ήλιος', transliteration:'Piso apo kathe sinnevo krybetai o ilios', meaning:'Μετά τις δυσκολίες, ακολουθούν πάντα καλύτερες μέρες.' },
+    { greek:'Δες τον φίλο σου και πες μου ποιος είσαι', transliteration:'Des ton filo sou ke pes mou pios eisai', meaning:'Η παρέα σου αντικατοπτρίζει τον χαρακτήρα σου.' },
+    { greek:'Από τα λόγια βγαίνει πόλεμος κι από τα λόγια ειρήνη', transliteration:'Apo ta logia vgainei polemos ki apo ta logia eirini', meaning:'Τα λόγια μπορούν να ενώσουν ή να χωρίσουν.' },
+    { greek:'Καλύτερα μόνος παρά κακώς συνοδευόμενος', transliteration:'Kalitera monos para kakos sinodeomenos', meaning:'Η κακή παρέα χειρότερη από τη μοναξιά.' },
+    { greek:'Μη βλέπεις το δέντρο και χάνεις το δάσος', transliteration:'Mi vlepeis to dentro ke hanis to dasos', meaning:'Μη χάνεσαι στις λεπτομέρειες — δες τη μεγάλη εικόνα.' },
+    { greek:'Μαύρη πέτρα δεν ασπρίζει', transliteration:'Mavri petra den asprizei', meaning:'Κάποιοι άνθρωποι δεν αλλάζουν ποτέ χαρακτήρα.' },
+    { greek:'Δεν πάνε όλα με το νου', transliteration:'Den pane ola me to nou', meaning:'Η λογική δεν λύνει τα πάντα — χρειάζεσαι και καρδιά.' },
+  ];
+
+  // ═══════════════════════════════════════════════════════════════════
+  //  DATA — DEITIES & HEROES
+  // ═══════════════════════════════════════════════════════════════════
+  const DEITIES = [
+    { name:'Ζεύς', domain:'Θεός του κεραυνού, του ουρανού και των θεών', symbol:'⚡', emoji:'🦅', funFact:'Μεταμορφωνόταν σε ζώα, χρυσή βροχή, ακόμα και ταύρο για να αποπλανά θνητές και θεές.' },
+    { name:'Αθηνά', domain:'Θεά της σοφίας, της στρατηγικής και των τεχνών', symbol:'🦉', emoji:'🦉', funFact:'Γεννήθηκε εντελώς οπλισμένη, πηδώντας από το κεφάλι του Δία αφού αυτός κατάπιε τη μητέρα της.' },
+    { name:'Απόλλων', domain:'Θεός του ήλιου, της μουσικής και της προφητείας', symbol:'🌞', emoji:'🎵', funFact:'Ίδρυσε το μαντείο των Δελφών όπου ο Πύθιος απαντούσε στα ερωτήματα των ανθρώπων.' },
+    { name:'Άρτεμη', domain:'Θεά του κυνηγιού, της σελήνης και της παρθενίας', symbol:'🌙', emoji:'🏹', funFact:'Ζήτησε από τον πατέρα της Δία να μείνει για πάντα παρθένα — και το πέτυχε!' },
+    { name:'Ποσειδών', domain:'Θεός της θάλασσας, των σεισμών και των αλόγων', symbol:'🔱', emoji:'🌊', funFact:'Ανταγωνίστηκε την Αθηνά για την ιδιοκτησία της Αθήνας — και έχασε σε έναν θεϊκό διαγωνισμό!' },
+    { name:'Αφροδίτη', domain:'Θεά της αγάπης, της ομορφιάς και της ηδονής', symbol:'🌹', emoji:'💫', funFact:'Γεννήθηκε από τον αφρό της θάλασσας, κοντά στην Κύπρο. Η νήσος της το τιμά μέχρι σήμερα.' },
+    { name:'Ήφαιστος', domain:'Θεός της φωτιάς, των σιδηρουργών και της τεχνολογίας', symbol:'🔨', emoji:'🔥', funFact:'Δημιούργησε το πρώτο ρομπότ — τον χάλκινο γίγαντα Τάλως που φύλαγε την Κρήτη!' },
+    { name:'Ερμής', domain:'Αγγελιοφόρος των θεών, θεός του εμπορίου και των κλεφτών', symbol:'🐍', emoji:'⚗️', funFact:'Γεννήθηκε το πρωί, έκλεψε τα βόδια του Απόλλωνα μέχρι το απόγευμα, και ήταν αθώος το βράδυ!' },
+    { name:'Άρης', domain:'Θεός του πολέμου και της βίας', symbol:'⚔️', emoji:'🛡️', funFact:'Παρά την πολεμική του δόξα, ήταν ο μόνος θεός που κλείστηκε σε ένα χάλκινο δοχείο από δύο θνητούς!' },
+    { name:'Διόνυσος', domain:'Θεός του κρασιού, των τελετών και του θεάτρου', symbol:'🍇', emoji:'🎭', funFact:'Ο θεός του θεάτρου — τα πρώτα έργα παίζονταν ως αφιερώματα προς αυτόν στην Αθήνα.' },
+    { name:'Δήμητρα', domain:'Θεά της γεωργίας, των εποχών και της γονιμότητας', symbol:'🌾', emoji:'🌻', funFact:'Όταν η κόρη της Περσεφόνη αρπάχθηκε, η Δήμητρα δημιούργησε τον χειμώνα από θλίψη.' },
+    { name:'Περσεφόνη', domain:'Βασίλισσα του Κάτω Κόσμου και θεά της άνοιξης', symbol:'🌸', emoji:'🌑', funFact:'Τρώει ρόδια στον Κάτω Κόσμο 6 μήνες το χρόνο — γι αυτό έχουμε χειμώνα!' },
+    { name:'Ηρακλής', domain:'Ημίθεος, ο μεγαλύτερος ήρωας της Ελλάδας', symbol:'🦁', emoji:'💪', funFact:'Ολοκλήρωσε 12 άθλους αδύνατους — συμπεριλαμβανομένου του να καθαρίσει τους στάβλους του Αυγεία σε μία μέρα!' },
+    { name:'Οδυσσέας', domain:'Ήρωας, βασιλιάς της Ιθάκης, ο πολυμήχανος', symbol:'🌊', emoji:'⚓', funFact:'Χρειάστηκε 10 χρόνια για να επιστρέψει σπίτι μετά τον Τρωικό Πόλεμο — πλοηγώντας ανάμεσα σε Κύκλωπες, Σειρήνες και θεές.' },
+    { name:'Αχιλλέας', domain:'Ημίθεος, ο μεγαλύτερος πολεμιστής της Τροίας', symbol:'🗡️', emoji:'🏆', funFact:'Η μόνη τρωτή σημεία ήταν η φτέρνα του — γι αυτό σήμερα μιλάμε για «Αχίλλεια πτέρνα»!' },
+    { name:'Μέδουσα', domain:'Γοργόνα με φιδένια μαλλιά — σύμβολο δύναμης και θανάτου', symbol:'🐍', emoji:'👁️', funFact:'Το βλέμμα της πέτρωνε τους πάντες — τη νίκησε ο Περσέας κοιτώντας μόνο τη σκιά της στην ασπίδα του.' },
+  ];
+
+  // ═══════════════════════════════════════════════════════════════════
+  //  SECTION 1 — Name Days
+  // ═══════════════════════════════════════════════════════════════════
+  function initNameDays() {
+    const todayEntries = NAME_DAYS.filter(e => e.month === TODAY_MONTH && e.day === TODAY_DAY);
+    const banner  = document.getElementById('nameday-today-banner');
+    const names   = document.getElementById('nameday-today-names');
+    const saint   = document.getElementById('nameday-today-saint');
+
+    if (todayEntries.length > 0) {
+      const allNames  = todayEntries.flatMap(e => e.names);
+      const allSaints = [...new Set(todayEntries.map(e => e.saint))].join(' | ');
+      names.textContent = allNames.join(' · ');
+      saint.textContent = '⛪ ' + allSaints;
+    } else {
+      banner.classList.add('empty');
+      names.textContent = 'Σήμερα δεν έχει γιορτή';
+      saint.textContent = '«Μια χελιδόνα δεν φέρνει άνοιξη» — κι αύριο γιορτάζει κάποιος!';
+    }
+
+    document.getElementById('nameday-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') searchName();
+    });
+  }
+
+  function searchName() {
+    const query  = normaliseGreek(document.getElementById('nameday-input').value.trim());
+    const result = document.getElementById('nameday-result');
+
+    if (!query) { result.innerHTML = ''; return; }
+
+    const matches = NAME_DAYS.filter(e =>
+      e.names.some(n => normaliseGreek(n).includes(query))
+    );
+
+    if (matches.length === 0) {
+      result.innerHTML = `<div class="not-found">Δεν βρέθηκε όνομα που να ταιριάζει με «${document.getElementById('nameday-input').value}».</div>`;
+      return;
+    }
+
+    const html = matches.map(m => {
+      const d = String(m.day).padStart(2,'0');
+      const months = ['Ιανουαρίου','Φεβρουαρίου','Μαρτίου','Απριλίου','Μαΐου','Ιουνίου',
+                      'Ιουλίου','Αυγούστου','Σεπτεμβρίου','Οκτωβρίου','Νοεμβρίου','Δεκεμβρίου'];
+      const dateStr = `${d} ${months[m.month-1]}`;
+      return `<div class="found">⭐ <strong>${m.names.join(' / ')}</strong> — ${dateStr} &nbsp;|&nbsp; ${m.saint}</div>`;
+    }).join('');
+
+    result.innerHTML = html;
+  }
+
+  // ═══════════════════════════════════════════════════════════════════
+  //  SECTION 2 — Coffee Oracle
+  // ═══════════════════════════════════════════════════════════════════
+  function revealCoffee() {
+    const mood  = document.getElementById('mood-select').value;
+    const time  = document.getElementById('time-select').value;
+    const result = document.getElementById('coffee-result');
+
+    if (!mood || !time) {
+      result.classList.remove('show');
+      document.getElementById('coffee-name').textContent    = 'Διάλεξε διάθεση και ώρα πρώτα!';
+      document.getElementById('coffee-comment').textContent = '😅';
+      document.getElementById('coffee-emoji').textContent   = '🤷';
+      result.classList.add('show');
+      return;
+    }
+
+    const rec = COFFEE_MATRIX[mood][time];
+    const prep = rec.prep ? ` (${rec.prep})` : '';
+    const emoji = COFFEE_EMOJI[rec.drink] || '☕';
+
+    document.getElementById('coffee-emoji').textContent   = emoji;
+    document.getElementById('coffee-name').textContent    = rec.drink + prep;
+    document.getElementById('coffee-comment').textContent = rec.comment;
+
+    result.classList.remove('show');
+    void result.offsetWidth; // force reflow for animation replay
+    result.classList.add('show');
+  }
+
+  // ═══════════════════════════════════════════════════════════════════
+  //  SECTION 3 — Proverb of the Day
+  // ═══════════════════════════════════════════════════════════════════
+  let proverbOffset = DAY_OF_YEAR % PROVERBS.length;
+
+  function showProverb(index) {
+    const p = PROVERBS[index % PROVERBS.length];
+    document.getElementById('proverb-greek').textContent   = p.greek;
+    document.getElementById('proverb-trans').textContent   = p.transliteration;
+    document.getElementById('proverb-meaning').textContent = p.meaning;
+    document.getElementById('proverb-counter').textContent =
+      `Παροιμία ${(index % PROVERBS.length) + 1} από ${PROVERBS.length}`;
+  }
+
+  function nextProverb() {
+    proverbOffset = (proverbOffset + 1) % PROVERBS.length;
+    const card = document.getElementById('proverb-card');
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(10px)';
+    setTimeout(() => {
+      showProverb(proverbOffset);
+      card.style.transition = 'opacity 0.4s, transform 0.4s';
+      card.style.opacity = '1';
+      card.style.transform = '';
+    }, 200);
+  }
+
+  function initProverb() {
+    showProverb(proverbOffset);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════
+  //  SECTION 4 — Mythology
+  // ═══════════════════════════════════════════════════════════════════
+  let lastDeityIndex = -1;
+
+  function drawDeity() {
+    let idx;
+    do { idx = Math.floor(Math.random() * DEITIES.length); }
+    while (idx === lastDeityIndex && DEITIES.length > 1);
+    lastDeityIndex = idx;
+
+    const d    = DEITIES[idx];
+    const card = document.getElementById('deity-card');
+
+    card.classList.remove('show', 'placeholder');
+    card.style.opacity   = '0';
+    card.style.transform = 'scale(0.88) rotateY(-8deg)';
+
+    card.innerHTML = `
+      <div class="deity-emoji">${d.emoji}</div>
+      <div class="deity-symbol">${d.symbol}</div>
+      <div class="deity-name">${d.name}</div>
+      <div class="deity-domain">${d.domain}</div>
+      <div class="deity-fact">💡 ${d.funFact}</div>
+    `;
+
+    void card.offsetWidth;
+    card.style.transition = 'opacity 0.5s, transform 0.5s';
+    card.style.opacity    = '1';
+    card.style.transform  = 'scale(1) rotateY(0deg)';
+  }
+
+  // ═══════════════════════════════════════════════════════════════════
+  //  NAV TABS — smooth scroll to section
+  // ═══════════════════════════════════════════════════════════════════
+  document.querySelectorAll('.nav-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const target = document.getElementById(tab.dataset.target);
+      if (target) {
+        const offset = 60; // nav height
+        const top = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // ═══════════════════════════════════════════════════════════════════
+  //  INTERSECTION OBSERVER — fade sections in on scroll
+  // ═══════════════════════════════════════════════════════════════════
+  function initObserver() {
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('section').forEach(s => s.classList.add('visible'));
+      return;
+    }
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('section').forEach(s => obs.observe(s));
+  }
+
+  // ═══════════════════════════════════════════════════════════════════
+  //  MAY 29 EASTER EGG
+  // ═══════════════════════════════════════════════════════════════════
+  if (MAY_29) {
+    const banner = document.createElement('div');
+    banner.className = 'may29-banner';
+    banner.innerHTML = `
+      <strong>🕯️ 29 Μαΐου 1453 — Σαν σήμερα έπεσε η Κωνσταντινούπολη.</strong>
+      «Η Πόλις εάλω.» Μια μέρα θλίψης, μνήμης και εθνικής συνείδησης για κάθε Έλληνα.
+      Ας τιμήσουμε τη μνήμη όσων πολέμησαν για να κρατήσουν ζωντανή την Ελλάδα. 🇬🇷
+    `;
+    document.body.insertBefore(banner, document.body.firstChild);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════
+  //  BOOT
+  // ═══════════════════════════════════════════════════════════════════
+  document.addEventListener('DOMContentLoaded', () => {
+    initNameDays();
+    initProverb();
+    initObserver();
+  });
+  </script>
+</body>
+</html>
